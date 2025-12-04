@@ -329,7 +329,7 @@ export default function InsightsDashboard({ tenantId }) {
           marginBottom: "1rem",
         }}
       >
-        🏆 Top 5 Customers by Spend
+        Top 5 Customers by Spend
       </h3>
 
       <div style={{ overflowX: "auto" }}>
@@ -468,7 +468,7 @@ export default function InsightsDashboard({ tenantId }) {
             margin: 0,
           }}
         >
-          📊 Business Insights Dashboard
+          Business Insights Dashboard
         </h2>
         <p
           style={{
@@ -481,7 +481,6 @@ export default function InsightsDashboard({ tenantId }) {
         </p>
       </div>
 
-      {/* KPI Cards Grid */}
       <div
         style={{
           display: "grid",
@@ -527,7 +526,7 @@ export default function InsightsDashboard({ tenantId }) {
       >
         <LineChart
           data={dashboardData.ordersByDate}
-          title="📈 Orders by Date (with Date Range Filtering)"
+          title=" Orders by Date (with Date Range Filtering)"
           color="#3b82f6"
         />
         <LineChart

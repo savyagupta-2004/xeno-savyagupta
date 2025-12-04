@@ -1,27 +1,56 @@
-'use client';
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 
 export default function Sidebar({ activeSection, setActiveSection }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems = [
-    { id: 'overview', label: 'Overview', icon: '📊', description: 'Dashboard Summary' },
-    { id: 'analytics', label: 'Analytics', icon: '📈', description: 'Charts & Reports' },
-    { id: 'events', label: 'Custom Events', icon: '🎯', description: 'Cart & Checkout' },
-    { id: 'customers', label: 'Customers', icon: '👥', description: 'Customer Data' },
-    { id: 'sync', label: 'Data Sync', icon: '🔄', description: 'Shopify Sync' },
-    { id: 'settings', label: 'Settings', icon: '⚙️', description: 'Configuration' }
+    {
+      id: "overview",
+      label: "Overview",
+      icon: "📊",
+      description: "Dashboard Summary",
+    },
+    {
+      id: "analytics",
+      label: "Analytics",
+      icon: "📈",
+      description: "Charts & Reports",
+    },
+    {
+      id: "events",
+      label: "Custom Events",
+      icon: "🎯",
+      description: "Cart & Checkout",
+    },
+    {
+      id: "customers",
+      label: "Customers",
+      icon: "👥",
+      description: "Customer Data",
+    },
+    { id: "sync", label: "Data Sync", icon: "🔄", description: "Shopify Sync" },
+    {
+      id: "settings",
+      label: "Settings",
+      icon: "⚙️",
+      description: "Configuration",
+    },
   ];
 
   return (
-    <div className={`bg-gradient-to-b from-blue-900 to-blue-800 text-white transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} min-h-screen fixed left-0 top-16 z-40`}>
+    <div
+      className={`bg-gradient-to-b from-blue-900 to-blue-800 text-white transition-all duration-300 ${
+        isCollapsed ? "w-16" : "w-64"
+      } min-h-screen fixed left-0 top-16 z-40`}
+    >
       {/* Collapse Toggle */}
       <div className="p-4 border-b border-blue-700">
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="w-full flex items-center justify-center p-2 hover:bg-blue-700 rounded-lg transition-colors"
         >
-          <span className="text-xl">{isCollapsed ? '→' : '←'}</span>
+          <span className="text-xl">{isCollapsed ? "→" : "←"}</span>
           {!isCollapsed && <span className="ml-2 text-sm">Collapse Menu</span>}
         </button>
       </div>
@@ -33,9 +62,9 @@ export default function Sidebar({ activeSection, setActiveSection }) {
             key={item.id}
             onClick={() => setActiveSection(item.id)}
             className={`w-full flex items-center p-3 mb-2 rounded-lg transition-all duration-200 ${
-              activeSection === item.id 
-                ? 'bg-blue-600 shadow-lg scale-105' 
-                : 'hover:bg-blue-700 hover:scale-102'
+              activeSection === item.id
+                ? "bg-blue-600 shadow-lg scale-105"
+                : "hover:bg-blue-700 hover:scale-102"
             }`}
           >
             <span className="text-xl">{item.icon}</span>

@@ -5,7 +5,7 @@ import { useAuth } from "./context/AuthContext";
 import OrdersByDateChart from "../components/OrdersByDateChart";
 import BusinessMetricsCharts from "../components/BusinessMetricsCharts";
 import SettingsPage from "../components/SettingsPage";
-
+import "./dashboard.css";
 // const BACKEND_URL = 'https://xenoshopifytask-production.up.railway.app';
 const BACKEND_URL = "http://localhost:3006";
 
@@ -324,7 +324,7 @@ export default function Dashboard() {
   };
 
   const syncData = async (endpoint, type) => {
-    setSyncStatus(`🔄 Syncing ${type}...`);
+    setSyncStatus(` Syncing ${type}...`);
     try {
       const response = await fetch("/api/proxy", {
         method: "POST",
@@ -337,7 +337,7 @@ export default function Dashboard() {
 
       const result = await response.json();
       if (result.success) {
-        setSyncStatus(`✅ ${type} synced successfully!`);
+        setSyncStatus(` ${type} synced successfully!`);
         setTimeout(() => {
           loadAllData();
           setTimeout(() => setSyncStatus(""), 3000);
@@ -376,322 +376,149 @@ export default function Dashboard() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-          color: "white",
+          background: "#f5f7fa",
         }}
       >
         <div style={{ textAlign: "center" }}>
-          <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>🛒</div>
-          <h1 style={{ fontSize: "1.5rem", opacity: 0.8 }}>
+          {/* Modern Clean Spinner */}
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              border: "4px solid #d1d5db",
+              borderTop: "4px solid #3E4A8A",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+              margin: "0 auto 1rem auto",
+            }}
+          />
+
+          <h1
+            style={{
+              fontSize: "1.2rem",
+              color: "#374151",
+              letterSpacing: "0.03em",
+              fontWeight: 600,
+            }}
+          >
             Loading Xeno Analytics...
           </h1>
+
+          {/* Inline CSS Animation */}
+          <style>
+            {`
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          `}
+          </style>
         </div>
       </div>
     );
   }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
 
   if (!isAuthenticated()) return null;
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f8fafc" }}>
-      {/* Navigation */}
-      <nav
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 1000,
-          background: "#2563eb",
-          color: "white",
-          padding: "1rem 2rem",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <div
-            style={{
-              background: "white",
-              padding: "0.5rem",
-              borderRadius: "0.5rem",
-            }}
-          >
-            <span style={{ fontSize: "1.5rem", color: "#2563eb" }}>🛒</span>
-          </div>
-          <h1 style={{ fontSize: "1.25rem", fontWeight: "bold", margin: 0 }}>
-            Xeno Analytics
-          </h1>
+    <div className="dashboard-container">
+      <div className="navbar">
+        <div className="logo-images">
+          <img src="Images/shopify.png" alt="Shopify" className="logo-img" />
+          <img src="Images/cross.gif" alt="×" className="logo-cross" />
+          <img src="Images/xeno.png" alt="Xeno" className="logo-img" />
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <span style={{ fontSize: "0.875rem" }}>
-            Store: {user?.tenant?.name || `xeno-savyagupta`}
-          </span>
-          <div
-            style={{
-              width: "2rem",
-              height: "2rem",
-              background: "rgba(255,255,255,0.2)",
-              borderRadius: "50%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontWeight: "bold",
-            }}
-          >
-            {user?.email?.charAt(0).toUpperCase()}
-          </div>
+
+        <div className="navbar-actions">
           <button
-            onClick={logout}
-            style={{
-              background: "rgba(255,255,255,0.2)",
-              border: "none",
-              color: "white",
-              padding: "0.5rem",
-              borderRadius: "0.25rem",
-              cursor: "pointer",
-            }}
+            className="nav-btn settings-btn"
+            onClick={() => setShowSettings(true)}
           >
-            🚪
+            Settings
+          </button>
+
+          <button className="nav-btn logout-btn" onClick={handleLogout}>
+            Logout
           </button>
         </div>
-      </nav>
+      </div>
 
       {/* Settings Page Display */}
       {showSettings && (
-        <div style={{ marginBottom: "2rem" }}>
+        <div className="settings-container">
           <SettingsPage />
         </div>
       )}
 
       {/* Main Content */}
       {!showSettings && (
-        <div style={{ display: "flex" }}>
-          {/* Sidebar */}
-          <div
-            style={{
-              position: "sticky",
-              top: "80px",
-              height: "calc(100vh - 80px)",
-              width: "4rem",
-              background: "white",
-              borderRight: "1px solid #e5e7eb",
-              padding: "2rem 0",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "2rem",
-              }}
-            >
-              {["📊", "👥", "🎯", "⚙️"].map((icon, i) => (
-                <div
-                  key={i}
-                  onClick={() => {
-                    if (i === 3) setShowSettings(true);
-                  }}
-                  style={{
-                    width: "2.5rem",
-                    height: "2.5rem",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: "0.5rem",
-                    background: i === 0 ? "#e0f2fe" : "transparent",
-                    color: i === 0 ? "#0284c7" : "#6b7280",
-                    cursor: "pointer",
-                    fontSize: "1.25rem",
-                  }}
-                >
-                  {icon}
-                </div>
-              ))}
-            </div>
-          </div>
-
+        <div className="main-layout">
           {/* Dashboard Content */}
-          <div style={{ flex: 1, padding: "2rem" }}>
+          <div className="dashboard-content">
             {/* Core Metrics */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "1.5rem",
-                marginBottom: "2rem",
-              }}
-            >
+            <div className="metrics-grid">
               {/* Total Customers */}
               <div
                 onClick={openCustomerListModal}
-                style={{
-                  background: "white",
-                  borderRadius: "1rem",
-                  padding: "2rem",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                  position: "relative",
-                }}
+                className="metric-card clickable"
               >
-                <h3
-                  style={{
-                    fontSize: "1rem",
-                    color: "#6b7280",
-                    margin: "0 0 1rem 0",
-                    fontWeight: "500",
-                  }}
-                >
-                  Total Customers{" "}
-                  <span
-                    style={{
-                      fontSize: "0.75rem",
-                      color: "#3b82f6",
-                      marginLeft: "0.5rem",
-                      fontWeight: "bold",
-                    }}
-                  >
+                <h3 className="metric-title">
+                  Total Customers
+                  <span className="metric-click-hint">
                     (Click to view list)
                   </span>
                 </h3>
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "1rem" }}
-                >
-                  <div
-                    style={{
-                      width: "3rem",
-                      height: "3rem",
-                      background: "#3b82f6",
-                      borderRadius: "0.75rem",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "white",
-                      fontSize: "1.25rem",
-                    }}
-                  >
-                    👥
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "2rem",
-                      fontWeight: "bold",
-                      color: "#1f2937",
-                    }}
-                  >
+                <div className="metric-content">
+                  <div className="metric-icon blue">👥</div>
+                  <div className="metric-value">
                     {isLoading
                       ? "..."
                       : (stats?.totalCustomers || 0).toLocaleString()}
                   </div>
                 </div>
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "1rem",
-                    right: "1rem",
-                    fontSize: "0.875rem",
-                    color: "#3b82f6",
-                  }}
-                >
-                  👆
-                </div>
+                <div className="click-indicator">👆</div>
               </div>
 
               {/* Cart Events */}
-              <div
-                style={{
-                  background: "white",
-                  borderRadius: "1rem",
-                  padding: "2rem",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: "1rem",
-                    color: "#1f2937",
-                    margin: "0 0 1rem 0",
-                    fontWeight: "600",
-                  }}
-                >
-                  🛒 Cart Events
-                </h3>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "#3b82f6",
-                      color: "white",
-                      padding: "0.5rem 0.75rem",
-                      borderRadius: "0.25rem",
-                      fontSize: "0.75rem",
-                      fontWeight: "600",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
+              <div className="metric-card">
+                <h3 className="cart-events-title">Cart Events</h3>
+                <div className="cart-events-list">
+                  <div className="cart-event-item started">
                     <span>Started</span>
                     <span>{customEvents.checkoutsStarted}</span>
                   </div>
-                  <div
-                    style={{
-                      background: "#f59e0b",
-                      color: "white",
-                      padding: "0.5rem 0.75rem",
-                      borderRadius: "0.25rem",
-                      fontSize: "0.75rem",
-                      fontWeight: "600",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
+                  <div className="cart-event-item abandoned">
                     <span>Abandoned</span>
                     <span>{customEvents.totalAbandoned}</span>
                   </div>
-                  <div
-                    style={{
-                      background: "#10b981",
-                      color: "white",
-                      padding: "0.5rem 0.75rem",
-                      borderRadius: "0.25rem",
-                      fontSize: "0.75rem",
-                      fontWeight: "600",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
+                  <div className="cart-event-item completed">
                     <span>Completed</span>
                     <span>{customEvents.checkoutsCompleted}</span>
                   </div>
-                  <div
-                    style={{
-                      fontSize: "0.75rem",
-                      marginTop: "0.5rem",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "0.25rem",
-                    }}
-                  >
-                    <div style={{ color: "#dc2626", fontWeight: "bold" }}>
-                      Abandonment: {customEvents.abandonmentRate}%
-                    </div>
-                    <div style={{ color: "#16a34a", fontWeight: "bold" }}>
-                      Conversion: {customEvents.conversionRate}%
-                    </div>
+                </div>
+                <div className="cart-metrics">
+                  <div className="cart-metric-item">
+                    <span className="cart-metric-label">Abandonment Rate</span>
+                    <span className="cart-metric-value red">
+                      {customEvents.abandonmentRate}%
+                    </span>
+                  </div>
+                  <div className="cart-metric-item">
+                    <span className="cart-metric-label">Conversion Rate</span>
+                    <span className="cart-metric-value green">
+                      {customEvents.conversionRate}%
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Orders Chart */}
-            <div style={{ marginBottom: "2rem" }}>
+            <div className="chart-section">
               <OrdersByDateChart
                 apiData={ordersData}
                 startDate={dateRange.start}
@@ -715,57 +542,12 @@ export default function Dashboard() {
             />
 
             {/* Secondary Metrics */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "1.5rem",
-                marginBottom: "2rem",
-              }}
-            >
-              <div
-                style={{
-                  background: "white",
-                  borderRadius: "1rem",
-                  padding: "2rem",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: "1rem",
-                    color: "#6b7280",
-                    margin: "0 0 1rem 0",
-                    fontWeight: "500",
-                  }}
-                >
-                  Total Orders
-                </h3>
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "1rem" }}
-                >
-                  <div
-                    style={{
-                      width: "3rem",
-                      height: "3rem",
-                      background: "#10b981",
-                      borderRadius: "0.75rem",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "white",
-                      fontSize: "1.25rem",
-                    }}
-                  >
-                    📦
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "2rem",
-                      fontWeight: "bold",
-                      color: "#1f2937",
-                    }}
-                  >
+            <div className="metrics-grid">
+              <div className="metric-card">
+                <h3 className="metric-title">Total Orders</h3>
+                <div className="metric-content">
+                  <div className="metric-icon green">📦</div>
+                  <div className="metric-value">
                     {isLoading
                       ? "..."
                       : (stats?.totalOrders || 0).toLocaleString()}
@@ -773,49 +555,11 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div
-                style={{
-                  background: "white",
-                  borderRadius: "1rem",
-                  padding: "2rem",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                }}
-              >
-                <h3
-                  style={{
-                    fontSize: "1rem",
-                    color: "#6b7280",
-                    margin: "0 0 1rem 0",
-                    fontWeight: "500",
-                  }}
-                >
-                  Total Revenue
-                </h3>
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "1rem" }}
-                >
-                  <div
-                    style={{
-                      width: "3rem",
-                      height: "3rem",
-                      background: "#8b5cf6",
-                      borderRadius: "0.75rem",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "white",
-                      fontSize: "1.25rem",
-                    }}
-                  >
-                    💰
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "2rem",
-                      fontWeight: "bold",
-                      color: "#1f2937",
-                    }}
-                  >
+              <div className="metric-card">
+                <h3 className="metric-title">Total Revenue</h3>
+                <div className="metric-content">
+                  <div className="metric-icon purple">💰</div>
+                  <div className="metric-value">
                     ₹
                     {isLoading
                       ? "..."
@@ -826,123 +570,51 @@ export default function Dashboard() {
             </div>
 
             {/* Top Customers */}
-            <div
-              style={{
-                background: "white",
-                borderRadius: "1rem",
-                padding: "2rem",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                marginBottom: "2rem",
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: "1.125rem",
-                  color: "#1f2937",
-                  margin: "0 0 1.5rem 0",
-                  fontWeight: "600",
-                }}
-              >
-                🏆 Top 5 Customers by Spend
-              </h3>
+            <div className="top-customers-card">
+              <h3 className="top-customers-title">Top 5 Customers by Spend</h3>
 
               {topCustomers &&
               Array.isArray(topCustomers) &&
               topCustomers.length > 0 ? (
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                    gap: "1rem",
-                  }}
-                >
+                <div className="top-customers-grid">
                   {topCustomers.slice(0, 5).map((customer, index) => (
-                    <div
-                      key={customer?.id || index}
-                      style={{
-                        background: "#f8fafc",
-                        padding: "1rem",
-                        borderRadius: "0.5rem",
-                        border: "1px solid #e5e7eb",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                          marginBottom: "0.5rem",
-                        }}
-                      >
+                    <div key={customer?.id || index} className="customer-card">
+                      <div className="customer-header">
                         <div
-                          style={{
-                            width: "1.5rem",
-                            height: "1.5rem",
-                            borderRadius: "50%",
-                            background:
-                              index === 0
-                                ? "#fbbf24"
-                                : index === 1
-                                ? "#9ca3af"
-                                : index === 2
-                                ? "#cd7c2f"
-                                : "#e5e7eb",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontSize: "0.75rem",
-                            fontWeight: "bold",
-                            color: index < 3 ? "white" : "#6b7280",
-                          }}
+                          className={`customer-rank ${
+                            index === 0
+                              ? "gold"
+                              : index === 1
+                              ? "silver"
+                              : index === 2
+                              ? "bronze"
+                              : "other"
+                          }`}
                         >
                           {index + 1}
                         </div>
-                        <div
-                          style={{
-                            fontWeight: "600",
-                            fontSize: "0.875rem",
-                            color: "#1f2937",
-                          }}
-                        >
+                        <div className="customer-name">
                           {customer?.name ||
                             customer?.email ||
                             "Unknown Customer"}
                         </div>
                       </div>
-                      <div
-                        style={{
-                          fontSize: "1.25rem",
-                          fontWeight: "bold",
-                          color: "#16a34a",
-                        }}
-                      >
+                      <div className="customer-spend">
                         ${(customer?.totalSpent || 0).toFixed(2)}
                       </div>
-                      <div style={{ fontSize: "0.75rem", color: "#6b7280" }}>
+                      <div className="customer-orders">
                         {customer?.ordersCount || 0} orders
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div
-                  style={{
-                    textAlign: "center",
-                    color: "#6b7280",
-                    padding: "2rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "3rem",
-                      marginBottom: "1rem",
-                      opacity: 0.5,
-                    }}
-                  >
-                    👥
-                  </div>
-                  <p>No customer data available.</p>
-                  <p style={{ fontSize: "0.875rem", marginTop: "0.5rem" }}>
+                <div className="empty-state">
+                  <div className="empty-state-icon">👥</div>
+                  <p className="empty-state-text">
+                    No customer data available.
+                  </p>
+                  <p className="empty-state-subtext">
                     {isLoading
                       ? "Loading customers..."
                       : "Click sync to load data."}
@@ -952,29 +624,10 @@ export default function Dashboard() {
             </div>
 
             {/* Sync Controls */}
-            <div
-              style={{
-                display: "flex",
-                gap: "1rem",
-                justifyContent: "center",
-                flexWrap: "wrap",
-              }}
-            >
+            <div className="sync-controls">
               <button
                 onClick={() => setShowSettings(!showSettings)}
-                style={{
-                  padding: "0.75rem 1.5rem",
-                  border: "none",
-                  borderRadius: "0.75rem",
-                  background: "#6b7280",
-                  color: "white",
-                  fontWeight: "600",
-                  fontSize: "0.875rem",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                }}
+                className="sync-btn settings"
               >
                 <span>⚙️</span>SETTINGS
               </button>
@@ -990,19 +643,7 @@ export default function Dashboard() {
                   onClick={() =>
                     syncData(item.endpoint, item.label.split(" ")[1])
                   }
-                  style={{
-                    padding: "0.75rem 1.5rem",
-                    border: "none",
-                    borderRadius: "0.75rem",
-                    background: "#3b82f6",
-                    color: "white",
-                    fontWeight: "600",
-                    fontSize: "0.875rem",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
+                  className="sync-btn primary"
                 >
                   <span>{item.icon}</span>
                   {item.label}
@@ -1011,93 +652,29 @@ export default function Dashboard() {
             </div>
 
             {/* Status Message */}
-            {syncStatus && (
-              <div
-                style={{
-                  marginTop: "1rem",
-                  textAlign: "center",
-                  padding: "1rem",
-                  background: "white",
-                  borderRadius: "0.75rem",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                  fontSize: "1rem",
-                  fontWeight: "600",
-                }}
-              >
-                {syncStatus}
-              </div>
-            )}
+            {syncStatus && <div className="status-message">{syncStatus}</div>}
           </div>
         </div>
       )}
 
       {/* Customer List Modal */}
       {customerListModal.isOpen && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 2000,
-          }}
-        >
-          <div
-            style={{
-              background: "white",
-              borderRadius: "1rem",
-              padding: "2rem",
-              width: "90%",
-              maxWidth: "1000px",
-              maxHeight: "80vh",
-              overflow: "hidden",
-              boxShadow: "0 25px 50px rgba(0,0,0,0.25)",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "1.5rem",
-                paddingBottom: "1rem",
-                borderBottom: "2px solid #e5e7eb",
-              }}
-            >
-              <h2
-                style={{
-                  fontSize: "1.5rem",
-                  fontWeight: "bold",
-                  color: "#1f2937",
-                  margin: 0,
-                }}
-              >
+        <div className="modal-overlay">
+          <div className="modal-container">
+            <div className="modal-header">
+              <h2 className="modal-title">
                 👥 Customer List ({customerListModal.pagination.total}{" "}
                 customers)
               </h2>
               <button
                 onClick={closeCustomerListModal}
-                style={{
-                  background: "#ef4444",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "0.5rem",
-                  padding: "0.5rem 1rem",
-                  cursor: "pointer",
-                  fontSize: "0.875rem",
-                  fontWeight: "600",
-                }}
+                className="modal-close-btn"
               >
                 ✕ Close
               </button>
             </div>
 
-            <div style={{ marginBottom: "1.5rem" }}>
+            <div className="modal-search">
               <input
                 type="text"
                 placeholder="🔍 Search customers by name or email..."
@@ -1114,140 +691,46 @@ export default function Dashboard() {
                     }
                   }, 500);
                 }}
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "2px solid #e5e7eb",
-                  borderRadius: "0.5rem",
-                  fontSize: "1rem",
-                  outline: "none",
-                }}
+                className="modal-search-input"
               />
             </div>
 
-            <div
-              style={{
-                maxHeight: "400px",
-                overflowY: "auto",
-                border: "1px solid #e5e7eb",
-                borderRadius: "0.5rem",
-              }}
-            >
+            <div className="modal-table-container">
               {customerListModal.loading ? (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "200px",
-                  }}
-                >
-                  <div style={{ textAlign: "center" }}>
-                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>
-                      ⏳
-                    </div>
-                    <p>Loading customers...</p>
-                  </div>
+                <div className="modal-loading">
+                  <div className="modal-loading-icon">⏳</div>
+                  <p className="modal-loading-text">Loading customers...</p>
                 </div>
               ) : customerListModal.customers.length > 0 ? (
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <table className="customer-table">
                   <thead>
-                    <tr style={{ background: "#f8fafc" }}>
-                      <th
-                        style={{
-                          padding: "0.75rem",
-                          textAlign: "left",
-                          borderBottom: "1px solid #e5e7eb",
-                        }}
-                      >
-                        Customer
-                      </th>
-                      <th
-                        style={{
-                          padding: "0.75rem",
-                          textAlign: "left",
-                          borderBottom: "1px solid #e5e7eb",
-                        }}
-                      >
-                        Email
-                      </th>
-                      <th
-                        style={{
-                          padding: "0.75rem",
-                          textAlign: "right",
-                          borderBottom: "1px solid #e5e7eb",
-                        }}
-                      >
-                        Total Spent
-                      </th>
-                      <th
-                        style={{
-                          padding: "0.75rem",
-                          textAlign: "center",
-                          borderBottom: "1px solid #e5e7eb",
-                        }}
-                      >
-                        Orders
-                      </th>
+                    <tr>
+                      <th>Customer</th>
+                      <th>Email</th>
+                      <th className="text-right">Total Spent</th>
+                      <th className="text-center">Orders</th>
                     </tr>
                   </thead>
                   <tbody>
                     {customerListModal.customers.map((customer) => (
-                      <tr
-                        key={customer.id}
-                        style={{ borderBottom: "1px solid #f3f4f6" }}
-                      >
-                        <td style={{ padding: "0.75rem" }}>
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "0.5rem",
-                            }}
-                          >
-                            <div
-                              style={{
-                                width: "2rem",
-                                height: "2rem",
-                                borderRadius: "50%",
-                                background: "#3b82f6",
-                                color: "white",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                fontSize: "0.75rem",
-                                fontWeight: "bold",
-                              }}
-                            >
+                      <tr key={customer.id}>
+                        <td>
+                          <div className="customer-table-avatar-cell">
+                            <div className="customer-table-avatar">
                               {customer.name.charAt(0).toUpperCase()}
                             </div>
-                            <span style={{ fontWeight: "600" }}>
+                            <span className="customer-table-name">
                               {customer.name}
                             </span>
                           </div>
                         </td>
-                        <td
-                          style={{ padding: "0.75rem", fontSize: "0.875rem" }}
-                        >
+                        <td className="customer-table-email">
                           {customer.email}
                         </td>
-                        <td
-                          style={{
-                            padding: "0.75rem",
-                            textAlign: "right",
-                            fontWeight: "bold",
-                            color: "#16a34a",
-                          }}
-                        >
+                        <td className="customer-table-spend">
                           ${customer.totalSpent.toFixed(2)}
                         </td>
-                        <td
-                          style={{
-                            padding: "0.75rem",
-                            textAlign: "center",
-                            fontWeight: "600",
-                          }}
-                        >
+                        <td className="customer-table-orders">
                           {customer.ordersCount}
                         </td>
                       </tr>
@@ -1255,19 +738,9 @@ export default function Dashboard() {
                   </tbody>
                 </table>
               ) : (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "200px",
-                    flexDirection: "column",
-                  }}
-                >
-                  <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>
-                    👥
-                  </div>
-                  <p style={{ color: "#6b7280" }}>No customers found</p>
+                <div className="modal-empty-state">
+                  <div className="modal-empty-icon">👥</div>
+                  <p className="modal-empty-text">No customers found</p>
                 </div>
               )}
             </div>
