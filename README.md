@@ -13,6 +13,102 @@
 </div>
 
 ---
+# Shopify Development Store Setup Guide
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v18 or higher)
+- **PostgreSQL** database
+
+---
+
+## Step 1: Create Shopify Partner Account
+
+1. Navigate to [partners.shopify.com](https://partners.shopify.com)
+2. Click **"Join Shopify Partners"**
+3. Fill in your details and complete the registration process
+4. Create your account
+> **Note:** A Shopify Partner account gives you access to development stores and app development tools.
+
+---
+
+## Step 2: Create Development Store
+
+1. In your Partners dashboard, navigate to **"Stores"**
+2. Click **"Add store"** → **"Development store"**
+3. Select **"Create a new development store"**
+4. Fill in the required store details
+5. Click **"Save"**
+
+---
+
+## Step 3: Configure Store Settings
+
+When setting up your development store, configure the following:
+
+- **Store name:** Choose a descriptive name (e.g., "Xeno Analytics Test Store")
+- **Country/Region:** Select your primary location
+- **Store purpose:** Select **"To test and develop apps"**
+
+Once configured, click **"Create development store"**
+
+---
+
+## Step 4: Access Your Store
+
+After creation, you can access your store in multiple ways:
+
+1. **View Store:** Click on your store name in the Partners dashboard
+2. **Store URL:** Note your store URL (format: `your-store.myshopify.com`)
+3. **Frontend Access:** Click **"Open store"** to view the customer-facing storefront
+4. **Admin Access:** Click **"Admin"** to access the Shopify admin dashboard
+
+---
+
+## Step 5: Navigate Shopify Admin Panel
+
+The Shopify Admin panel is your main interface for managing:
+
+- Products and inventory
+- Orders and customers
+- Store settings and apps
+- Analytics and reports
+- Theme customization
+
+You can access the admin panel directly using:
+```
+https://your-store.myshopify.com/admin
+```
+
+---
+
+## Next Steps
+
+With your development store set up, you're ready to:
+
+- Install and configure your app
+- Test webhooks and API integrations
+- Add sample products and customers
+- Configure payment and shipping settings
+
+---
+
+## Additional Resources
+<img src="./assets/s1.png"></img>
+<img src="./assets/s3.png"></img>
+<img src="./assets/s4.png"></img>
+<img src="./assets/s5.png"></img>
+
+- [Shopify Partner Documentation](https://shopify.dev/docs)
+- [Shopify API Reference](https://shopify.dev/api)
+- [Development Store Limitations](https://help.shopify.com/en/partners/dashboard/managing-stores/development-stores)
+
+---
+
+**Need Help?** Visit the [Shopify Community Forums](https://community.shopify.com) or contact Shopify Partner Support.
+---
 
 ##  Table of Contents
 
@@ -170,7 +266,7 @@ Xeno Analytics is a sophisticated multi-tenant SaaS platform designed to bridge 
 
 ---
 
-### Interactive Business Charts
+### pgAdmin
 <div align="center">
 <img src="./assets/pgadmin" alt="Business Intelligence Charts" width="800"/>
 </div>
@@ -480,6 +576,6 @@ const authenticate = async (req, res, next) => {
 
 <div align="center">
 
-*Thank you for reviewing my project! ⭐*
+*Thank you!*
 
 </div>
