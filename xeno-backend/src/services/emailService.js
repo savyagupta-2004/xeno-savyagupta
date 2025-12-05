@@ -56,8 +56,7 @@ class EmailService {
       // Check if email is store admin
       const adminEmails = [
         shopifyConnection.email,
-        'admin@xeno.com',
-        'ujjwal@techmart.com'
+        'admin@xeno.com'
       ].filter(Boolean);
       
       if (adminEmails.some(adminEmail => adminEmail.toLowerCase() === email.toLowerCase())) {
