@@ -262,21 +262,21 @@ Xeno Analytics is a sophisticated multi-tenant platform designed to bridge the g
 
 ### Analytics Dashboard Overview
 <div align="center">
-<img src="./assets/analytics" alt="Analytics Dashboard" width="800"/>
+<img src="./assets/analytics.png" alt="Analytics Dashboard" width="800"/>
 </div>
 
 ---
 
 ### pgAdmin
 <div align="center">
-<img src="./assets/pgadmin" alt="Business Intelligence Charts" width="800"/>
+<img src="./assets/pgadmin.png" alt="Business Intelligence Charts" width="800"/>
 </div>
 
 ---
 
 ### Webhook Integration & Real-Time Sync
 <div align="center">
-<img src="./assets/ngrok" alt="Shopify Webhook Integration" width="800"/>
+<img src="./assets/ngrok.png" alt="Shopify Webhook Integration" width="800"/>
 </div>
 
 ---
