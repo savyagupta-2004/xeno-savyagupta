@@ -1,6 +1,7 @@
 # Xeno Analytics by Savya Gupta
 ### Multi-Tenant Shopify Data Ingestion & Business Intelligence Platform
 
+
 <div align="center">
 
 <img src="./assets/cross.gif" alt="x" width="80"/> 
@@ -142,6 +143,8 @@ Xeno Analytics is a sophisticated multi-tenant platform designed to bridge the g
 - Advanced analytics dashboard with customizable metrics
 - Enterprise security with JWT authentication
 - Scalable cloud-native infrastructure
+
+  
 <img src="./assets/image.png"></img>
 ---
 
@@ -252,7 +255,7 @@ Xeno Analytics is a sophisticated multi-tenant platform designed to bridge the g
 
 ### Landing Page & Authentication
 <div align="center">
-<img src="./assets/image.png" alt="Landing Page" width="800"/>
+<img src="./assets/login.png" alt="Landing Page" width="800"/>
 </div>
 
 ---
