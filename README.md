@@ -142,7 +142,7 @@ Xeno Analytics is a sophisticated multi-tenant platform designed to bridge the g
 - Advanced analytics dashboard with customizable metrics
 - Enterprise security with JWT authentication
 - Scalable cloud-native infrastructure
-<img src="./assets/web.png"></img>
+<img src="./assets/image.png"></img>
 ---
 
 ##  Key Features
@@ -187,7 +187,7 @@ Xeno Analytics is a sophisticated multi-tenant platform designed to bridge the g
 
 ## System Architecture
 
-<img src="./assets/architecture.png"></img>
+<img src="./assets/architecture.jpg"></img>
 ```
 ┌──────────────────────────────────────────────────────┐
 │                   CLIENT LAYER                       │
