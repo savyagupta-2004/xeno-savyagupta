@@ -5,6 +5,7 @@ import { useAuth } from "./context/AuthContext";
 import OrdersByDateChart from "../components/OrdersByDateChart";
 import BusinessMetricsCharts from "../components/BusinessMetricsCharts";
 import SettingsPage from "../components/SettingsPage";
+import useWebhookPoll from "../hooks/useWebhookPoll";
 import "./dashboard.css";
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3006";
 
@@ -60,6 +61,52 @@ export default function Dashboard() {
 
   const router = useRouter();
   const tenantId = user?.tenantId || "1";
+  const handleWebhookEvent = async (event) => {
+    try {
+      // event.topic like 'orders/create' or 'products/update'
+      const topic = (event.topic || "").toLowerCase();
+
+      // Use your existing proxy-based sync call pattern (same as syncData but internal)
+      const tokenHeaders = getAuthHeaders();
+
+      if (topic.includes("order")) {
+        // trigger server-side sync for orders, then refresh orders in UI
+        await fetch("/api/proxy", {
+          method: "POST",
+          headers: tokenHeaders,
+          body: JSON.stringify({ endpoint: `/api/sync/orders`, tenantId }),
+        });
+        await fetchOrdersByDate();
+        await loadDashboard();
+      } else if (topic.includes("product")) {
+        await fetch("/api/proxy", {
+          method: "POST",
+          headers: tokenHeaders,
+          body: JSON.stringify({ endpoint: `/api/sync/products`, tenantId }),
+        });
+        await fetchBusinessMetrics();
+        await loadDashboard();
+      } else if (topic.includes("customer")) {
+        await fetch("/api/proxy", {
+          method: "POST",
+          headers: tokenHeaders,
+          body: JSON.stringify({ endpoint: `/api/sync/customers`, tenantId }),
+        });
+        await fetchTopCustomers();
+        await loadDashboard();
+      } else {
+        // fallback: sync all and refresh
+        await fetch("/api/proxy", {
+          method: "POST",
+          headers: tokenHeaders,
+          body: JSON.stringify({ endpoint: `/api/sync/all`, tenantId }),
+        });
+        await loadAllData();
+      }
+    } catch (err) {
+      console.error("Webhook handler error:", err);
+    }
+  };
 
   const fetchBusinessMetrics = async () => {
     try {
@@ -366,6 +413,8 @@ export default function Dashboard() {
       fetchCustomEvents();
     }
   }, [dateRange, tenantId]);
+  // start webhook polling (runs in background while Dashboard mounted)
+  useWebhookPoll({ onEvent: handleWebhookEvent, interval: 5000 });
 
   if (authLoading) {
     return (

@@ -17,6 +17,7 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const webhooksRouter = require("./src/services/webhookService");
 const { prisma } = require("./src/config/database");
 const shopifyService = require("./src/services/shopifyService");
 const validateTokenRoute = require("./src/routes/validateToken");
@@ -63,7 +64,11 @@ app.use(
 // Handle preflight requests
 app.options("*", cors());
 
-app.use("/api/webhooks", express.raw({ type: "application/json" }));
+// Only apply RAW body to /api/webhooks/shopify
+app.post("/api/webhooks/shopify", express.raw({ type: "application/json" }));
+
+// After that, mount router (which uses JSON for /check)
+app.use("/api/webhooks", webhooksRouter);
 app.use("/api/auth", validateTokenRoute);
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
