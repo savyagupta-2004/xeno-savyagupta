@@ -40,6 +40,9 @@ app.use(
       "http://localhost:3001",
       "http://localhost:3005",
       "http://localhost:3006",
+      "https://xeno-savyagupta-backend.onrender.com",
+      "https://xeno-savyagupta.vercel.app/login",
+      "https://xeno-savyagupta.vercel.app",
       /\.vercel\.app$/,
       /\.railway\.app$/, // Allow Railway domains
     ],
@@ -1059,8 +1062,8 @@ module.exports = app;
 if (require.main === module) {
   const PORT = process.env.PORT || 3005;
   app.listen(PORT, () => {
-    console.log(`🚀 Server running: http://localhost:${PORT}`);
-    console.log(`🔧 Test: http://localhost:${PORT}/api/test`);
-    console.log(`📊 Health: http://localhost:${PORT}/health`);
+    console.log(`Server running: http://localhost:${PORT}`);
+    console.log(`Test: http://localhost:${PORT}/api/test`);
+    console.log(`Health: http://localhost:${PORT}/health`);
   });
 }

@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    // NEXT_PUBLIC_API_URL: 'https://xenoshopifytask-production.up.railway.app',
-    NEXT_PUBLIC_API_URL: "http://localhost:3006",
+    NEXT_PUBLIC_API_URL: "https://xeno-savyagupta-backend.onrender.com",
+    // NEXT_PUBLIC_API_URL: "http://localhost:3006",
   },
   eslint: {
     // Temporarily disable ESLint during builds to resolve deployment issues

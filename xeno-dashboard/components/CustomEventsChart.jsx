@@ -22,7 +22,6 @@ ChartJS.register(
 );
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3006";
-// const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://xenoshopifytask-production.up.railway.app';
 
 function formatDateLabel(dateStr) {
   if (!dateStr) return "";

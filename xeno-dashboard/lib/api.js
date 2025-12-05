@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// const API_BASE = 'https://xenoshopifytask-production.up.railway.app';
-const API_BASE = "http://localhost:3006";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3006";
 
 const api = axios.create({
   baseURL: API_BASE,

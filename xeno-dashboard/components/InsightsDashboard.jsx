@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 
-// const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://xenoshopifytask-production.up.railway.app';
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3006";
 
 export default function InsightsDashboard({ tenantId }) {

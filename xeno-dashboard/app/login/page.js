@@ -19,8 +19,8 @@ export default function Login() {
 
     try {
       // NUCLEAR OPTION: Direct Railway URL (v3.0 - BYPASS ALL CACHING)
-      // const RAILWAY_URL = 'https://xenoshopifytask-production.up.railway.app';
-      const RAILWAY_URL = "http://localhost:3006";
+      const RAILWAY_URL =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:3006";
       console.log("🔥 NUCLEAR VERSION 3.0 - Using Railway URL:", RAILWAY_URL);
       console.log(
         "🔥 If you see the old URL in network tab, clear ALL browser data!"

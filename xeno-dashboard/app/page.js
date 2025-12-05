@@ -6,8 +6,7 @@ import OrdersByDateChart from "../components/OrdersByDateChart";
 import BusinessMetricsCharts from "../components/BusinessMetricsCharts";
 import SettingsPage from "../components/SettingsPage";
 import "./dashboard.css";
-// const BACKEND_URL = 'https://xenoshopifytask-production.up.railway.app';
-const BACKEND_URL = "http://localhost:3006";
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3006";
 
 export default function Dashboard() {
   const {
