@@ -15,7 +15,7 @@ const dbConfig = {
   port: 5432,
   database: 'xeno_db',
   user: 'postgres',
-  password: 'Ujjwal,agg1499@'  // Put real password here
+  password: 'guptasavyapass'  
 };
 
 // Security middleware
