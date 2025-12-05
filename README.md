@@ -1,4 +1,4 @@
-# Xeno Analytics
+# Xeno Analytics by Savya Gupta
 ### Multi-Tenant Shopify Data Ingestion & Business Intelligence Platform
 
 <div align="center">
@@ -6,7 +6,7 @@
 <img src="./assets/cross.gif" alt="x" width="80"/> 
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge&logo=vercel)](https://xeno-savyagupta.vercel.app/login)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/savyagupta-2004/xeno-savyagupta)
+
 
 *Enterprise-grade analytics platform enabling retailers to seamlessly integrate, analyze, and visualize their Shopify store data in real-time.*
 
@@ -127,8 +127,7 @@ With your development store set up, you're ready to:
 
 ##  Overview
 
-Xeno Analytics is a sophisticated multi-tenant SaaS platform designed to bridge the gap between Shopify's e-commerce capabilities and enterprise-level business intelligence. Built with modern web technologies and cloud-native architecture, it provides retailers with actionable insights through seamless data synchronization and advanced analytics.
-
+Xeno Analytics is a sophisticated multi-tenant platform designed to bridge the gap between Shopify's e-commerce capabilities and enterprise-level business intelligence. Built with modern web technologies and cloud-native architecture, it provides retailers with actionable insights through seamless data synchronization and advanced analytics.
 ### What It Solves
 
 **Enterprise retailers struggle with:**
@@ -143,7 +142,7 @@ Xeno Analytics is a sophisticated multi-tenant SaaS platform designed to bridge 
 - Advanced analytics dashboard with customizable metrics
 - Enterprise security with JWT authentication
 - Scalable cloud-native infrastructure
-
+<img src="./assets/web.png"></img>
 ---
 
 ##  Key Features
@@ -188,33 +187,34 @@ Xeno Analytics is a sophisticated multi-tenant SaaS platform designed to bridge 
 
 ## System Architecture
 
+<img src="./assets/architecture.png"></img>
 ```
 ┌──────────────────────────────────────────────────────┐
-│                   CLIENT LAYER                        │
+│                   CLIENT LAYER                       │
 │  ┌────────────────────────────────────────────────┐  │
-│  │         React.js Frontend Application           │  │
-│  │  • Authentication  • Dashboard  • Analytics     │  │
+│  │         Next.js Frontend Application           │  │
+│  │  • Authentication  • Dashboard  • Analytics    │ │
 │  └────────────────────────────────────────────────┘  │
 └─────────────────────┬────────────────────────────────┘
                       │ HTTPS/REST
 ┌─────────────────────▼────────────────────────────────┐
-│                APPLICATION LAYER                      │
+│                APPLICATION LAYER                     │
 │  ┌────────────────────────────────────────────────┐  │
-│  │           Express.js API Gateway                │  │
-│  │  ┌──────────┐ ┌───────────┐ ┌──────────────┐  │  │
-│  │  │   Auth   │ │ Analytics │ │   Shopify    │  │  │
-│  │  │   API    │ │    API    │ │ Integration  │  │  │
-│  │  └──────────┘ └───────────┘ └──────────────┘  │  │
+│  │           Express.js API Gateway                 │
+│  │  ┌──────────┐ ┌───────────┐ ┌──────────────┐  │   │
+│  │  │   Auth   │ │ Analytics │ │   Shopify    │  │   │
+│  │  │   API    │ │    API    │ │ Integration  │  │   │
+│  │  └──────────┘ └───────────┘ └──────────────┘  │   │
 │  └────────────────────────────────────────────────┘  │
 └─────────────────────┬────────────────────────────────┘
                       │ Prisma ORM
 ┌─────────────────────▼────────────────────────────────┐
-│                   DATA LAYER                          │
+│                   DATA LAYER                         │
 │  ┌────────────────────────────────────────────────┐  │
 │  │      PostgreSQL Database (Railway)             │  │
 │  │  • Tenants  • Customers  • Orders  • Products  │  │
 │  └────────────────────────────────────────────────┘  │
-└───────────────────────────────────────────────────────┘
+└──────────────────────────────────────────────────────┘
 ```
 
 ### Architecture Principles
@@ -229,10 +229,7 @@ Xeno Analytics is a sophisticated multi-tenant SaaS platform designed to bridge 
 ## Technology Stack
 
 ### Frontend
-- **React.js 18.x** - UI framework
-- **React Router 6.x** - Navigation
-- **Axios** - HTTP client  
-- **Recharts** - Data visualization
+- **Next.jsUI framework
 - **CSS3** - Responsive styling
 
 ### Backend
@@ -245,6 +242,7 @@ Xeno Analytics is a sophisticated multi-tenant SaaS platform designed to bridge 
 ### Infrastructure
 - **PostgreSQL** - Database
 - **Railway** - DB hosting
+- **Render** - Server deployment
 - **Vercel** - App deployment
 - **Ngrok** - Webhook testing
 
